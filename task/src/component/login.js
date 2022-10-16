@@ -4,15 +4,6 @@ import validation from "./validation";
 
 function Login() {
 
-    // const [email,setEmail]=useState("");
-    // const [password,setPassword]=useState("");
-
-    // function login(){
-    //     console.warn(email,password)
-    //     let item={email,password};
-    //     let result=fetch("https://reqres.in/api/login")
-    // }
-
     const [values, setValues] = useState({
         email: '',
         password: ''
@@ -49,7 +40,7 @@ function Login() {
             </div>
             <div className="inputChild">
                 <fieldset><legend>Password</legend>
-                    <input type="password" placeholder="Password must contain letter and special symbol" name="password" value={values.password} onChange={handleChange} />
+                    <input type="password" placeholder="***********" name="password" value={values.password} onChange={handleChange} />
                 </fieldset>
                 {errors.password && <p style={{color:"red", fontSize:"13px"}}>{errors.password}</p>}
             </div>
