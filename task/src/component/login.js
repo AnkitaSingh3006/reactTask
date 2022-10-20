@@ -1,48 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import './login.css';
 import validation from "./validation";
+import axios from "axios";
 
 function Login() {
 
-    const [values, setValues] = useState({
-        email: '',
-        password: ''
-    })
+    const [formInputs, setFormInputs] = useState({});
 
-    const [errors, setError]= useState({})
+    const [errors, setError] = useState({});
 
-    function handleChange(e) {
-        setValues({ ...values, [e.target.email]: e.target.value })
+    const handleChange = (event) => {
+        // console.log(event);
+        const name = event.target.name;
+        const value = event.target.value;
+        setFormInputs(values => ({ ...values, [name]: value }))
     }
 
-    function handleSubmit(e){
-        e.preventDefault();
-        validation(values);
-        setError(validation(values))
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // console.log('formInputs', formInputs)
+        setError(validation(formInputs));
+        axios.post('https://reqres.in/api/login', {
+            email: formInputs.email,
+            password: formInputs.password
+        })
+            .then(result => {
+                console.log(result);
+                alert("Login Success")
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
     }
 
-    useEffect(()=>{
-        if(Object.keys(errors).length === 0 && (values.email !== "" && values.password !== 0))
-        alert("Form Submitted")
-    },[errors])
 
     return <div className="container">
-        <div>
-            <h1>Login</h1>
-        </div>
-        <br />
         <form onSubmit={handleSubmit}>
             <div className="inputChild">
-                <fieldset><legend>Email</legend>
-                    <input type="text" placeholder="e.g. eve.holt@gmail.in" name="email" value={values.email} onChange={handleChange} />
-                </fieldset>
-                {errors.email && <p style={{color:"red", fontSize:"13px"}}>{errors.email}</p>}
+                <label>Email
+                    <br/>
+                    <input type="text" name="email" value={formInputs.email || ''} onChange={handleChange} />
+                </label>
+                {errors.email && <p style={{ color: "red", fontSize: "13px" }}>{errors.email}</p>}
             </div>
-            <div className="inputChild">
-                <fieldset><legend>Password</legend>
-                    <input type="password" placeholder="***********" name="password" value={values.password} onChange={handleChange} />
-                </fieldset>
-                {errors.password && <p style={{color:"red", fontSize:"13px"}}>{errors.password}</p>}
+            <div className="inputChild" style={{paddingTop: "20px"}}>
+                <label>Password
+                    <br/>
+                    <input type="password" name="password" value={formInputs.password || ''} onChange={handleChange} />
+                </label>
+                {errors.password && <p style={{ color: "red", fontSize: "13px" }}>{errors.password}</p>}
             </div>
             <br />
             <div className="inputChild">
