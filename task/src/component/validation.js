@@ -2,12 +2,12 @@ const validation = (value) =>{
     let errors = {}
 
     if(!value.email){
-        errors.email = "Email Required!"
+        errors.email = "Please fill out this field!"
     }
 
 
     if(!value.password){
-        errors.password = "Password Required!"
+        errors.password = "Please fill out this field!"
     }
 
     else if (value.password.length < 9){

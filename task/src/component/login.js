@@ -29,7 +29,7 @@ function Login() {
                 alert("Login Success")
             })
             .catch(error => {
-                console.log(error);
+                alert(error);
             })
 
     }
