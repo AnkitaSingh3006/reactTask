@@ -18,20 +18,23 @@ function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // console.log('formInputs', formInputs)
         setError(validation(formInputs));
-        axios.post('https://reqres.in/api/login', {
-            email: formInputs.email,
-            password: formInputs.password
-        })
-            .then(result => {
-                console.log(result);
-                alert("Login Success")
-            })
-            .catch(error => {
-                alert(error);
-            })
+        console.log('formInputs', formInputs)
 
+        if (errors && Object.keys(errors).length === 0 && Object.getPrototypeOf(errors) === Object.prototype) {
+            axios.post('https://reqres.in/api/login', {
+                email: formInputs.email,
+                password: formInputs.password
+            })
+                .then(result => {
+                    console.log(result);
+                    alert("Login Success")
+                })
+                .catch(error => {
+                    alert(error);
+                })
+
+        }
     }
 
 
@@ -39,14 +42,14 @@ function Login() {
         <form onSubmit={handleSubmit}>
             <div className="inputChild">
                 <label>Email
-                    <br/>
+                    <br />
                     <input type="text" name="email" value={formInputs.email || ''} onChange={handleChange} />
                 </label>
                 {errors.email && <p style={{ color: "red", fontSize: "13px" }}>{errors.email}</p>}
             </div>
-            <div className="inputChild" style={{paddingTop: "20px"}}>
+            <div className="inputChild" style={{ paddingTop: "20px" }}>
                 <label>Password
-                    <br/>
+                    <br />
                     <input type="password" name="password" value={formInputs.password || ''} onChange={handleChange} />
                 </label>
                 {errors.password && <p style={{ color: "red", fontSize: "13px" }}>{errors.password}</p>}
