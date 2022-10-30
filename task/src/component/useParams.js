@@ -1,14 +1,24 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import './useParams.css'
 
-function User(){
+function User() {
     const params = useParams();
-    const {name} = params;
+    const { name } = params;
     console.warn(name)
 
-    return(
+    return (
         <div>
-            <h1>This is {name} Page</h1>
+            <div>
+                <Link to="/user/buck">
+                    <button className="btns">Buck</button>
+                </Link>
+                <Link to="/user/peter">
+                    <button className="btns">Peter</button>
+                </Link>
+            </div>
+            <br />
+            <p style={{margin: "10px" , fontSize: "28px"}}>This is {name} Page</p>
         </div>
     )
 }

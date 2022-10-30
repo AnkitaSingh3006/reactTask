@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import './login.css';
 import validation from "./validation";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
     const [formInputs, setFormInputs] = useState({});
 
     const [errors, setError] = useState({});
+
+    const navigate = useNavigate()
 
     const handleChange = (event) => {
         // console.log(event);
@@ -28,7 +31,8 @@ function Login() {
             })
                 .then(result => {
                     console.log(result);
-                    alert("Login Success")
+                    alert("Login Success");
+                    navigate('/profile/detail')
                 })
                 .catch(error => {
                     alert(error);

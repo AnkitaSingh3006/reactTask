@@ -1,7 +1,13 @@
 import Login from "./component/login";
 import User from "./component/useParams";
+import Profile from "./component/nestedRoute";
+import Follower from "./component/follower";
+import Following from "./component/following";
+import Detail from "./component/detail";
+import SearchUser from "./component/queryString";
 import './App.css'
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom'
+import Errorpage from "./component/errorPage";
 
 function App() {
   return (
@@ -11,18 +17,30 @@ function App() {
           <Link to="/login">
             <button className="btn">Login</button>
           </Link>
-          <br/>
-          <Link to="/user/anil">
-            <button className="btn">Buck</button>
+          <br />
+          <Link to="/user">
+            <button className="btn">URL Parameter</button>
           </Link>
           <br/>
-          <Link to="/user/peter">
-            <button className="btn">Peter</button>
+          <Link to="/profile">
+            <button className="btn">Nested Route</button>
+          </Link>
+          <br/>
+          <Link to="/searchUser">
+            <button className="btn">Query String</button>
           </Link>
         </div>
         <Routes>
           <Route path='/login' element={<Login />} />
-          <Route path="/user/:name" element={<User/>} />
+          <Route path='/user' element={<User />} />
+          <Route path="/user/:name" element={<User />} />
+          <Route path="/profile" element={<Profile/>}>
+            <Route path="/profile/detail" element={<Detail/>}/>
+            <Route path="/profile/follower" element={<Follower/>}/>
+            <Route path="/profile/following" element={<Following/>}/>
+          </Route>
+          <Route path="/searchUser" element={<SearchUser />} />
+          <Route path="/*" element={<Errorpage/>} />
         </Routes>
       </Router>
     </div>
