@@ -38,20 +38,18 @@ function App() {
             <button className="btn">Lazy Load</button>
           </Link>
         </div>
-        <Routes>
-          <Route path='/login' element={<Login />} />
-          <Route path='/user' element={<User />} />
-          <Route path="/user/:name" element={<User />} />
-          <Route path="/profile" element={<Profile />}>
-            <Route path="/profile/detail" element={<Detail />} />
-            <Route path="/profile/follower" element={<Follower />} />
-            <Route path="/profile/following" element={<Following />} />
-          </Route>
-          <Route path="/searchUser" element={<SearchUser />} />
-          <Route path="/*" element={<Errorpage />} />
-        </Routes>
-        <React.Suspense fallback={<About />}>
+        <React.Suspense fallback={<Login />}>
           <Routes>
+            <Route path='/login' element={<Login />} />
+            <Route path='/user' element={<User />} />
+            <Route path="/user/:name" element={<User />} />
+            <Route path="/profile" element={<Profile />}>
+              <Route path="/profile/detail" element={<Detail />} />
+              <Route path="/profile/follower" element={<Follower />} />
+              <Route path="/profile/following" element={<Following />} />
+            </Route>
+            <Route path="/searchUser" element={<SearchUser />} />
+            <Route path="/*" element={<Errorpage />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </React.Suspense>
