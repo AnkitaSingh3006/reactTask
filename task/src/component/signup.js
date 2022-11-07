@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Signup() {
     return <div className="container">
-        Sign Up
+        <p>This is for protected Route</p>
+        <input type="text"/>
+        <br/>
+        <button>SignUp</button>
     </div>
 }
 

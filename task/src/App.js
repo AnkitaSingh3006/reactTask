@@ -49,6 +49,7 @@ function App() {
               <Route path="/profile/following" element={<Following />} />
             </Route>
             <Route path="/searchUser" element={<SearchUser />} />
+            <Route path="/" element={<Login />} />
             <Route path="/*" element={<Errorpage />} />
             <Route path="/about" element={<About />} />
           </Routes>
