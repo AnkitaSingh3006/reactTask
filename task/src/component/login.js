@@ -3,6 +3,8 @@ import './login.css';
 import validation from "./validation";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
 
@@ -31,7 +33,10 @@ function Login() {
             })
                 .then(result => {
                     console.log(result);
-                    alert("Login Success");
+                    // alert("Login Success");
+                    toast.success("Wow so easy!", {
+                        position: "top-center"
+                    });
                     navigate('/profile/detail')
                 })
                 .catch(error => {
@@ -64,6 +69,8 @@ function Login() {
             </div>
 
         </form>
+        <ToastContainer />
+
     </div>
 }
 
