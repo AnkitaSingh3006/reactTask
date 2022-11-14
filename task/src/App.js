@@ -9,6 +9,8 @@ import SearchUser from "./component/queryString";
 import './App.css'
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom'
 import Errorpage from "./component/errorPage";
+import Userdata from "./component/userData";
+import Logout from "./component/logout";
 
 function App() {
 
@@ -37,6 +39,10 @@ function App() {
           <Link to="/about">
             <button className="btn">Lazy Load</button>
           </Link>
+          <br />
+          <Link to="/logout">
+            <button className="btn">LogOut</button>
+          </Link>
         </div>
         <React.Suspense fallback={<Login />}>
           <Routes>
@@ -52,6 +58,8 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/*" element={<Errorpage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/userdata" element={<Userdata />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </React.Suspense>
       </Router>

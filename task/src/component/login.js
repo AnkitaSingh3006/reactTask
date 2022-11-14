@@ -10,6 +10,15 @@ function Login() {
 
     const [formInputs, setFormInputs] = useState({});
 
+    const [isLoading, setLoading]= useState(false);
+
+    const loader = () =>{
+        setLoading(true);
+        setTimeout(()=>{
+            setLoading(false);
+    },3500)
+    }
+
     const [errors, setError] = useState({});
 
     const navigate = useNavigate()
@@ -20,7 +29,7 @@ function Login() {
         const value = event.target.value;
         setFormInputs(values => ({ ...values, [name]: value }))
     }
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         setError(validation(formInputs));
@@ -29,18 +38,21 @@ function Login() {
         if (errors && Object.keys(errors).length === 0 && Object.getPrototypeOf(errors) === Object.prototype) {
             axios.post('https://reqres.in/api/login', {
                 email: formInputs.email,
-                password: formInputs.password
+                password: formInputs.password  
             })
                 .then(result => {
                     console.log(result);
+                    localStorage.setItem('token',result.data.token)
                     // alert("Login Success");
-                    toast.success("Wow so easy!", {
+                    toast.success("Login Success!", {
                         position: "top-center"
                     });
-                    navigate('/profile/detail')
+                    navigate('/userdata');
                 })
                 .catch(error => {
-                    alert(error);
+                    toast.error(error.message, {
+                        position: "top-center"
+                    });
                 })
 
         }
@@ -48,6 +60,12 @@ function Login() {
 
 
     return <div className="container">
+        <div>{isLoading ? "":
+        (<button onClick={loader}>Click</button>)}
+        {isLoading ?<div> <h4>fetching</h4>
+        <img style={{width:"20px",height:"20px"}} src="https://tse3.mm.bing.net/th?id=OIP.RdB6_DvUTVfQa6Gqt-kvtAHaEK&pid=Api&P=0"/> </div>:''}
+        </div>
+        
         <form onSubmit={handleSubmit}>
             <div className="inputChild">
                 <label>Email
@@ -65,7 +83,7 @@ function Login() {
             </div>
             <br />
             <div className="inputChild">
-                <button type="submit">Submit</button>
+                <button type="submit" className="button">Submit</button>
             </div>
 
         </form>
