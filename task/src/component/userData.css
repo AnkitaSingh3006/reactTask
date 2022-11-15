@@ -2,7 +2,7 @@
     width: 80%;
     height: 90%;
     position: absolute;
-    top: 10%;
+    top: 5%;
     left: 15%;
 }
 
@@ -12,10 +12,18 @@ table {
 }
 
 th {
+    height: 50px;
     border: 1px solid rgb(173, 173, 173);
 }
 
 td {
     border: 1px solid rgb(173, 173, 173);
     text-align: center;
+}
+
+.namePopup{
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: none;
 }

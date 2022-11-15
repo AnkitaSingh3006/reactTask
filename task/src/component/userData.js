@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import './userData.css';
 import axios from "axios";
 // import DataTable from 'react-data-table-component'
+import Popup from "./popup";
 
 function Userdata() {
 
     const [userlist, setUserlist] = useState([]);
+
+    const [buttonPopup, setButtonPopup] = useState(false)
 
     const getUserList = async () => {
         try {
@@ -62,7 +65,7 @@ function Userdata() {
                     return (
                         <tr key={key}>
                             <td>{val.id}</td>
-                            <td>{val.email}</td>
+                            <td><button className="namePopup" onClick={()=>setButtonPopup(true)}>{val.email}</button></td>
                             <td>{val.first_name}</td>
                             <td>{val.last_name}</td>
                             <td><img width={95} height={95} src={val.avatar} alt="loading" /></td>
@@ -70,6 +73,9 @@ function Userdata() {
                     )
                 })}
             </table>
+            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <h3>Popup Container</h3>
+            </Popup>
         </div>
     )
 }

@@ -63,7 +63,7 @@ function Login() {
         <div>{isLoading ? "":
         (<button onClick={loader}>Click</button>)}
         {isLoading ?<div> <h4>fetching</h4>
-        <img style={{width:"20px",height:"20px"}} src="https://tse3.mm.bing.net/th?id=OIP.RdB6_DvUTVfQa6Gqt-kvtAHaEK&pid=Api&P=0"/> </div>:''}
+        <img style={{width:"20px",height:"20px"}} src="https://tse3.mm.bing.net/th?id=OIP.RdB6_DvUTVfQa6Gqt-kvtAHaEK&pid=Api&P=0" alt="loading"/> </div>:''}
         </div>
         
         <form onSubmit={handleSubmit}>
