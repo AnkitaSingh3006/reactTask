@@ -10,14 +10,14 @@ function Login() {
 
     const [formInputs, setFormInputs] = useState({});
 
-    const [isLoading, setLoading]= useState(false);
+    // const [isLoading, setLoading]= useState(false);
 
-    const loader = () =>{
-        setLoading(true);
-        setTimeout(()=>{
-            setLoading(false);
-    },3500)
-    }
+    // const loader = () =>{
+    //     setLoading(true);
+    //     setTimeout(()=>{
+    //         setLoading(false);
+    // },3500)
+    // }
 
     const [errors, setError] = useState({});
 
@@ -60,11 +60,12 @@ function Login() {
 
 
     return <div className="container">
-        <div>{isLoading ? "":
+
+        {/* <div>{isLoading ? "":
         (<button onClick={loader}>Click</button>)}
         {isLoading ?<div> <h4>fetching</h4>
         <img style={{width:"20px",height:"20px"}} src="https://tse3.mm.bing.net/th?id=OIP.RdB6_DvUTVfQa6Gqt-kvtAHaEK&pid=Api&P=0" alt="loading"/> </div>:''}
-        </div>
+        </div> */}
         
         <form onSubmit={handleSubmit}>
             <div className="inputChild">

@@ -10,9 +10,23 @@ function Userdata() {
 
     const [buttonPopup, setButtonPopup] = useState(false)
 
+    const [modeldata,setModeldata] = useState({
+        id:'',
+        first_name:'',
+        email:''
+     })
+
+     const showDetail = (id) =>
+     { 
+       fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+       .then(resposne=> resposne.json())
+       .then(res=>setModeldata(res))
+     }
+
+
     const getUserList = async () => {
         try {
-            const response = await axios.get("https://reqres.in/api/users?page=2");
+            const response = await axios.get("https://reqres.in/api/users?page=2/");
             setUserlist(response.data.data);
             console.log("API", response.data)
         } catch (error) {
@@ -20,9 +34,15 @@ function Userdata() {
         }
     }
 
+    useEffect(() => {
+        getUserList();
+
+    }, []);
+
+
     // console.log("userList",userlist)
 
-    // const columns = [
+    //  const columns = [
     //     {
     //         name: "id",
     //         selector: (row) => row.id,
@@ -45,36 +65,53 @@ function Userdata() {
     //     },
     // ]
 
-    useEffect(() => {
-        getUserList();
-    }, []);
 
     return (
         <div className="userContainer">
             {/* <DataTable columns={columns} data={userlist} /> */}
 
             <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Email</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Avatar</th>
-                </tr>
-                {userlist.map((val, key) => {
-                    return (
-                        <tr key={key}>
-                            <td>{val.id}</td>
-                            <td><button className="namePopup" onClick={()=>setButtonPopup(true)}>{val.email}</button></td>
-                            <td>{val.first_name}</td>
-                            <td>{val.last_name}</td>
-                            <td><img width={95} height={95} src={val.avatar} alt="loading" /></td>
-                        </tr>
-                    )
-                })}
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Avatar</th>
+                    </tr>
+                    {userlist.map((val, key) => {
+                        return (
+                            <tr key={key}>
+                                <td>{val.id}</td>
+                                <td><button className="namePopup" onClick={() => { setButtonPopup(true); showDetail(val.id) }}>{val.email}</button></td>
+                                <td>{val.first_name}</td>
+                                <td>{val.last_name}</td>
+                                <td><img width={95} height={95} src={val.avatar} alt="loading" /></td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
             </table>
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <h3>Popup Container</h3>
+                <div>
+                <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>  
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <tr >
+                              <td>{modeldata.id}</td>
+                              <td>{modeldata.name}</td>
+                              <td>{modeldata.email}</td>   
+                           </tr>
+                          
+                        </tbody>
+                    </table>
+                </div>
             </Popup>
         </div>
     )
