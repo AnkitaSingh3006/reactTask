@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './userData.css';
 import axios from "axios";
-// import DataTable from 'react-data-table-component'
 import Popup from "./popup";
 
 function Userdata() {
@@ -16,13 +15,10 @@ function Userdata() {
         email:''
      })
 
-     const showDetail = (id) =>
+     const showDetail = (val) =>
      { 
-       fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-       .then(resposne=> resposne.json())
-       .then(res=>setModeldata(res))
+        setModeldata(val)
      }
-
 
     const getUserList = async () => {
         try {
@@ -36,40 +32,10 @@ function Userdata() {
 
     useEffect(() => {
         getUserList();
-
     }, []);
-
-
-    // console.log("userList",userlist)
-
-    //  const columns = [
-    //     {
-    //         name: "id",
-    //         selector: (row) => row.id,
-    //     },
-    //     {
-    //         name: "email",
-    //         selector: (row) => row.email,
-    //     },
-    //     {
-    //         name: "firstname",
-    //         selector: (row) => row.first_name,
-    //     },
-    //     {
-    //         name: "lastname",
-    //         selector: (row) => row.last_name,
-    //     },
-    //     {
-    //         name: "avatar",
-    //         selector: (row) => <img width={95} height={95} src={row.avatar} alt="loading" />,
-    //     },
-    // ]
-
 
     return (
         <div className="userContainer">
-            {/* <DataTable columns={columns} data={userlist} /> */}
-
             <table>
                 <tbody>
                     <tr>
@@ -83,7 +49,7 @@ function Userdata() {
                         return (
                             <tr key={key}>
                                 <td>{val.id}</td>
-                                <td><button className="namePopup" onClick={() => { setButtonPopup(true); showDetail(val.id) }}>{val.email}</button></td>
+                                <td><button className="namePopup" onClick={() => { setButtonPopup(true); showDetail(val) }}>{val.email}</button></td>
                                 <td>{val.first_name}</td>
                                 <td>{val.last_name}</td>
                                 <td><img width={95} height={95} src={val.avatar} alt="loading" /></td>
@@ -92,26 +58,7 @@ function Userdata() {
                     })}
                 </tbody>
             </table>
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <div>
-                <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>  
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr >
-                              <td>{modeldata.id}</td>
-                              <td>{modeldata.name}</td>
-                              <td>{modeldata.email}</td>   
-                           </tr>
-                          
-                        </tbody>
-                    </table>
-                </div>
+            <Popup trigger={buttonPopup} popupData={modeldata} setTrigger={setButtonPopup}>
             </Popup>
         </div>
     )
